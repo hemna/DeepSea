@@ -35,11 +35,11 @@ show networks:
 
 {% endfor %}
 
-populate scrape configs:
+populate node scrape configs:
   salt.state:
     - tgt: {{ master }}
     - tgt_type: compound
-    - sls: ceph.monitoring.prometheus.populate_scrape_configs
+    - sls: ceph.monitoring.prometheus.populate_node_scrape_configs
 
 install prometheus:
   salt.state:
@@ -47,11 +47,11 @@ install prometheus:
     - tgt_type: compound
     - sls: ceph.monitoring.prometheus.install
 
-distribute scrape configs:
+distribute node scrape configs:
   salt.state:
     - tgt: 'I@roles:prometheus and I@cluster:ceph'
     - tgt_type: compound
-    - sls: ceph.monitoring.prometheus.push_scrape_configs
+    - sls: ceph.monitoring.prometheus.push_node_scrape_configs
 
 install and setup node exporters:
   salt.state:
